@@ -46,7 +46,6 @@ jobs:
           provenance: false
           builder: ${{ steps.buildx.outputs.name }}
           file: build/docker/app/Dockerfile
-          context: ./.tmp/${{ env.PROJECT_NAME }}/
           tags: |
             ghcr.io/${{ github.repository }}/${{ env.DOCKER_IMAGE_NAME }}:latest
             ghcr.io/${{ github.repository }}/${{ env.DOCKER_IMAGE_NAME }}
