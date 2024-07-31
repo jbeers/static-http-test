@@ -45,7 +45,7 @@ jobs:
           # Disabling provenance check due to https://community.fly.io/t/images-built-with-the-latest-docker-buildx-and-or-github-actions-work-again/10816
           provenance: false
           builder: ${{ steps.buildx.outputs.name }}
-          file: build/docker/Dockerfile
+          file: .github/build/docker/Dockerfile
           tags: |
             ghcr.io/${{ github.repository }}/${{ env.DOCKER_IMAGE_NAME }}:latest
             ghcr.io/${{ github.repository }}/${{ env.DOCKER_IMAGE_NAME }}
