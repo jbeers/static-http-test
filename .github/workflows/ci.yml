@@ -1,4 +1,3 @@
-name: Timebox API CI
 
 # Only on Development we build snapshots
 on:
