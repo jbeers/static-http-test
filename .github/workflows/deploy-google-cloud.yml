@@ -22,24 +22,39 @@ jobs:
           credentials_json: ${{ secrets.GKE_SERVICE_ACCOUNT_KEY }}
           # workload_identity_provider: ${{ secrets.GOOGLE_CLOUD_WORKLOAD_IDENTITY }}
 
-      - name: deploy with gke-deploy cli
-        id: deploy
-        uses: google-github-actions/deploy-gke@v0.0.2
-        with:
-          image: 'ghcr.io/jbeers/static-http-test/nginx:latest'
-          app_name: 'my-app'
-          region: 'us-central1'
-          cluster_name: 'my-cluster'
-          project_id: 'second-jet-442723-e4'
-          namespace: 'my-namespace'
-          expose: '80'
+      # - name: deploy with gke-deploy cli
+      #   id: deploy
+      #   uses: google-github-actions/deploy-gke@v0.0.2
+      #   with:
+      #     image: 'ghcr.io/jbeers/static-http-test/nginx:latest'
+      #     app_name: 'my-app'
+      #     region: 'us-central1'
+      #     cluster_name: 'my-cluster'
+      #     project_id: 'second-jet-442723-e4'
+      #     namespace: 'my-namespace'
+      #     expose: '80'
       
-      - id: 'test'
-        run: |
-          echo "${{ steps.deploy.outputs.name }}"
-          echo "${{ steps.deploy.outputs.runtime }}"
-          echo "${{ steps.deploy.outputs.service_account_email }}"
-          echo "${{ steps.deploy.outputs.serving_status }}"
-          echo "${{ steps.deploy.outputs.version_id }}"
-          echo "${{ steps.deploy.outputs.version_url }}"
+      # - id: 'test'
+      #   run: |
+      #     echo "${{ steps.deploy.outputs.name }}"
+      #     echo "${{ steps.deploy.outputs.runtime }}"
+      #     echo "${{ steps.deploy.outputs.service_account_email }}"
+      #     echo "${{ steps.deploy.outputs.serving_status }}"
+      #     echo "${{ steps.deploy.outputs.version_id }}"
+      #     echo "${{ steps.deploy.outputs.version_url }}"
+
+
+      # Get the GKE credentials so we can deploy to the cluster
+      - name: 'Set up GKE credentials'
+        uses: 'google-github-actions/get-gke-credentials@6051de21ad50fbb1767bc93c11357a49082ad116' # google-github-actions/get-gke-credentials@v2
+        with:
+          cluster_name: my-cluster
+          location: us-central1
+
+      # Deploy the Docker image to the GKE cluster
+      - name: 'Deploy to GKE'
+        run: |-
+          kubectl apply -k .github/k8s
+          kubectl rollout status deployment/nginx
+          kubectl get services -o wide
           

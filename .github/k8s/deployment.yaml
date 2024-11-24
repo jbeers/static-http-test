@@ -1,0 +1,11 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: the-deployment
+spec:
+  replicas: 2
+  template:
+    containers:
+      - name: nginx
+        image: ghcr.io/jbeers/static-http-test/nginx:latest
