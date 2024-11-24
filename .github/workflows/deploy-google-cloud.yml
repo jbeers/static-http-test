@@ -15,7 +15,7 @@ jobs:
     steps:
       - id: checkout
         uses: actions/checkout@v4
-        
+
       - id: 'auth'
         uses: google-github-actions/auth@v2
         with:
@@ -23,9 +23,9 @@ jobs:
 
       - name: deploy with gke-deploy cli
         id: deploy
-        uses: google-github-actions/deploy-appengine@v2
+        uses: google-github-actions/deploy-gke@0.0.2
         with:
-          image_url: 'ghcr.io/jbeers/static-http-test/nginx:latest'
+          image: 'ghcr.io/jbeers/static-http-test/nginx:latest'
           app_name: 'my-app'
           region: 'us-central1'
           cluster_name: 'my-cluster'
