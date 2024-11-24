@@ -19,7 +19,8 @@ jobs:
       - id: 'auth'
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: ${{ secrets.GOOGLE_CLOUD_WORKLOAD_IDENTITY }}
+          credentials_json: ${{ secrets.GKE_SERVICE_ACCOUNT_KEY }}
+          # workload_identity_provider: ${{ secrets.GOOGLE_CLOUD_WORKLOAD_IDENTITY }}
 
       - name: deploy with gke-deploy cli
         id: deploy
