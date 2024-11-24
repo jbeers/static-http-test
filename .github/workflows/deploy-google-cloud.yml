@@ -13,6 +13,9 @@ jobs:
       packages: write
       deployments: write
     steps:
+      - id: checkout
+        uses: actions/checkout@v4
+        
       - id: 'auth'
         uses: google-github-actions/auth@v2
         with:
