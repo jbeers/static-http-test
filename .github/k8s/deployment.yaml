@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  namespace: my-namespace
 spec:
   selector:
     matchLabels:
@@ -19,4 +18,3 @@ spec:
           image: ghcr.io/jbeers/static-http-test/nginx:latest
           ports:
             - containerPort: 80
-            - containerPort: 443
