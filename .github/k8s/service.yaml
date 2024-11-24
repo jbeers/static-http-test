@@ -1,0 +1,13 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: my-namespace
+spec:
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
