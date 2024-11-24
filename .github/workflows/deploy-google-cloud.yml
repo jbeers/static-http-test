@@ -1,0 +1,30 @@
+
+# Only on Development we build snapshots
+on:
+  workflow_dispatch: 
+            
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+      deployments: write
+    steps:
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: ${{ secrets.GOOGLE_CLOUD_WORKLOAD_IDENTITY }}
+
+      - name: 'deploy with gke-deploy cli'
+        uses: 'google-github-actions/deploy-gke-container@v0.1'
+        with:
+          image: 'ghcr.io/jbeers/static-http-test/nginx:latest'
+          app_name: 'my-app'
+          region: 'us-central1'
+          cluster_name: 'my-cluster'
+          project_id: 'second-jet-442723-e4'
+          namespace: 'my-namespace'
+          expose: '80'
+                
