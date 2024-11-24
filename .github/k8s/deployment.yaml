@@ -4,8 +4,18 @@ kind: Deployment
 metadata:
   name: the-deployment
 spec:
+  selector:
+    matchLabels:
+      app: nginx
   replicas: 2
   template:
-    containers:
-      - name: nginx
-        image: ghcr.io/jbeers/static-http-test/nginx:latest
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: ghcr.io/jbeers/static-http-test/nginx:latest
+          ports:
+            - containerPort: 80
+            - containerPort: 443
