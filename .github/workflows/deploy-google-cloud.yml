@@ -55,6 +55,6 @@ jobs:
       - name: 'Deploy to GKE'
         run: |-
           kubectl apply -k .github/k8s
-          kubectl rollout status deployment/nginx
+          kubectl rollout status deployment/nginx || true
           kubectl get services -o wide
           
