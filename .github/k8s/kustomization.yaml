@@ -8,9 +8,8 @@ resources:
   - service.yaml
 
 # namespace to deploy all Resources to
-namespace: default
+namespace: my-namespace
 
 # labels added to all Resources
 commonLabels:
-  app: example
   env: test
